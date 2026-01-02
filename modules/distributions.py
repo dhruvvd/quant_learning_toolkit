@@ -9,7 +9,8 @@ def sample_uniform(MIN: float, MAX: float, n: int = 10000) -> np.ndarray:
     return y_sampled
 
 
-def sample_normal(MEAN: f):
+def sample_normal(MEAN: float, STD: float, n: int = 10000) -> np.ndarray:
+    pass
 
 def sample_exponential():
 
