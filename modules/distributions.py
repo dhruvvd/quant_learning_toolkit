@@ -27,7 +27,10 @@ def sample_normal(MEAN: float, STD: float, n: int = 10000) -> np.ndarray:
     (idx,) = np.where(u < normal_dist(x, mean=MEAN, std=STD))
     return x[idx], len(idx) / n
 
-def sample_exponential():
+def sample_exponential(rate: float, n: int = 10000) -> np.ndarray:
+    x = np.random.uniform(0.0, 1.0, size=n)
+    y_sampled = (-1 / rate) * np.log(1 - x)
+    return y_sampled
 
 def sample_lognormal():
 
