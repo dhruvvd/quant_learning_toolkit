@@ -10,7 +10,22 @@ def sample_uniform(MIN: float, MAX: float, n: int = 10000) -> np.ndarray:
 
 
 def sample_normal(MEAN: float, STD: float, n: int = 10000) -> np.ndarray:
-    pass
+    def normal_dist(x: np.ndarray, mean: float, std: float) -> np.ndarray:
+        return (
+            1
+            / (std * np.sqrt(2 * np.pi))
+            * np.exp(-0.5 * ((x - mean) / std) ** 2)
+        )
+    
+    def laplace_dist(x: np.ndarray, mean: float, scale: float) -> np.ndarray:
+        return (1 / 2 * scale) * np.exp(-1 * abs(x - mean) / scale)
+
+
+    x = np.random.laplace(loc=MEAN, size=n)
+    k = 1.5
+    u = np.random.uniform(0, laplace_dist(x, MEAN, STD) * k)
+    (idx,) = np.where(u < normal_dist(x, mean=MEAN, std=STD))
+    return x[idx], len(idx) / n
 
 def sample_exponential():
 
