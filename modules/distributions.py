@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.special import erfinv
 
 # ------------ SAMPLING FUNCTIONS ------------
 
@@ -32,7 +33,10 @@ def sample_exponential(rate: float, n: int = 10000) -> np.ndarray:
     y_sampled = (-1 / rate) * np.log(1 - x)
     return y_sampled
 
-def sample_lognormal():
+def sample_lognormal(MEAN: float, STD: float, n: int = 10000):
+    x = np.random.uniform(0.0, 1.0, size=n)
+    y_sampled = np.exp(MEAN + (np.sqrt(2 * STD**2) * erfinv(2*x - 1)))
+    return y_sampled
 
 
 # ------------ STATISTICAL ANALYSIS FUNCTIONS ------------
