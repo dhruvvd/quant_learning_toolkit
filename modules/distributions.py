@@ -41,7 +41,7 @@ def sample_lognormal(MEAN: float, STD: float, n: int = 10000):
 
 # ------------ STATISTICAL ANALYSIS FUNCTIONS ------------
 
-def calculate_moments(x: np.ndarray):
+def calculate_moments(x: np.ndarray) -> dict:
     mean = x.mean()
     var = (np.std(a=x))**2
     skewness = skew(x)
@@ -59,7 +59,24 @@ def calculate_moments(x: np.ndarray):
 def empirical_cdf(x: np.ndarray, t: float):
     return np.count_nonzero(x <= t) / len(x)
 
-def pdf_estimate():
+def pdf_estimate(x: np.ndarray, type: str, info: dict) -> np.ndarray:
+    pdf = []
+
+    match type.lower():
+        case "uniform":
+            for samp in x:
+                if info['min'] < samp and info['max'] > samp:
+                    pdf.append(1 / info['max'] - info['min'])
+            return pdf
+        case "normal":
+            pdf = (1 / info['std'] * (np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - info['mean']) / info['std'])**2)
+            return pdf
+        case "exponential":
+            pdf = info['rate'] * np.exp(-1 * info['rate'] * x)
+            return pdf
+        case "lognormal":
+            pdf = (1 / (x * info['std']) * np.sqrt(2 * np.pi)) * np.exp(-0.5 * (np.log(x) - info['mean'] / info['std'])**2)
+            return pdf
 
 
 # ------------ VISUALIZATION FUNCTIONS ------------
