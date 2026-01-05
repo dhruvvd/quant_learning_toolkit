@@ -41,23 +41,23 @@ def sample_lognormal(MEAN: float, STD: float, n: int = 10000):
 
 # ------------ STATISTICAL ANALYSIS FUNCTIONS ------------
 
-def calculate_moments(x: np.ndarray, type: str):
+def calculate_moments(x: np.ndarray):
     mean = x.mean()
     var = (np.std(a=x))**2
-    skew = skew(x)
-    kurtosis = kurtosis(x)
+    skewness = skew(x)
+    kurt = kurtosis(x)
 
     moments = {
         "Mean": mean,
         "Variance": var,
-        "Skewness": skew,
-        "Kurtosis": kurtosis
+        "Skewness": skewness,
+        "Kurtosis": kurt
     }
 
     return moments
         
-
-def empirical_cdf():
+def empirical_cdf(x: np.ndarray, t: float):
+    return np.count_nonzero(x <= t) / len(x)
 
 def pdf_estimate():
 
