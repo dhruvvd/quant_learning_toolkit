@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import erfinv
+from scipy.stats import skew, kurtosis
 
 # ------------ SAMPLING FUNCTIONS ------------
 
@@ -8,7 +9,6 @@ def sample_uniform(MIN: float, MAX: float, n: int = 10000) -> np.ndarray:
     x = np.random.uniform(0.0, 1.0, size=n)
     y_sampled = MIN + (x * (MAX - MIN))
     return y_sampled
-
 
 def sample_normal(MEAN: float, STD: float, n: int = 10000) -> np.ndarray:
     def normal_dist(x: np.ndarray, mean: float, std: float) -> np.ndarray:
@@ -41,7 +41,21 @@ def sample_lognormal(MEAN: float, STD: float, n: int = 10000):
 
 # ------------ STATISTICAL ANALYSIS FUNCTIONS ------------
 
-def calculate_moments():
+def calculate_moments(x: np.ndarray, type: str):
+    mean = x.mean()
+    var = (np.std(a=x))**2
+    skew = skew(x)
+    kurtosis = kurtosis(x)
+
+    moments = {
+        "Mean": mean,
+        "Variance": var,
+        "Skewness": skew,
+        "Kurtosis": kurtosis
+    }
+
+    return moments
+        
 
 def empirical_cdf():
 
